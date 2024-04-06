@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <style>
+    /* Basic styling for the login page */
+    body {
+      background-image: url('https://bes-corp.com/wp-content/uploads/2018/08/workers-background-1.jpg');
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    .form-container {
+      width: 300px;
+      margin: 0 auto;
+    }
+    
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .form-container input[type="text"],
+    .form-container input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    
+    .form-container button {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+    
+    .switch-form {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login Page</h1>
+  
+  <div id="signinForm" class="form-container">
+    <form>
+      <label for="signinUsername">Username:</label>
+      <input type="text" id="signinUsername" required>
+      
+      <label for="signinPassword">Password:</label>
+      <input type="password" id="signinPassword" required>
+      
+      <button type="button" onclick="signIn()">Sign In</button>
+    </form>
+    
+    <div class="switch-form">
+      Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a>
+    </div>
+  </div>
+  
+  <div id="signupForm" class="form-container" style="display: none;">
+    <h2>Sign Up</h2>
+    <form>
+      <label for="signupUsername">Username:</label>
+      <input type="text" id="signupUsername" required>
+      
+      <label for="signupPassword">Password:</label>
+      <input type="password" id="signupPassword" required>
+      
+      <button type="button" onclick="signUp()">Sign Up</button>
+    </form>
+    
+    <div class="switch-form">
+      Already have an account? <a href="#" onclick="toggleForm()">Sign In</a>
+    </div>
+  </div>
+  
+  <script>
+    var signinForm = document.getElementById('signinForm');
+    var signupForm = document.getElementById('signupForm');
+    
+    function toggleForm() {
+      signinForm.style.display = (signinForm.style.display === 'none') ? 'block' : 'none';
+      signupForm.style.display = (signupForm.style.display === 'none') ? 'block' : 'none';
+    }
+    
+    function signIn() {
+      var username = document.getElementById('signinUsername').value;
+      var password = document.getElementById('signinPassword').value;
+      
+      // Perform sign-in validation (dummy example)
+      if (username === 'admin' && password === 'password') {
+        alert('Sign In successful!');
+        // Redirect to another page or perform further actions
+      } else {
+        alert('Invalid username or password!');
+      }
+      
+      // Clear form inputs

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Date Picker Example</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <style>
+    body {
+      background-image: url('https://th.bing.com/th/id/OIP.aG-N6alpyA9F4mUEQxOLxAHaE8?pid=ImgDet&w=1280&h=854&rs=1');
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .container input[type="text"],
+    .container select {
+      margin: 5px;
+    }
+
+    .container .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container .row button {
+      margin: 5px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .container .row button:hover {
+      background-color: #555;
+    }
+
+    .container .row label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .container .row input[type="text"] {
+      width: 100px;
+    }
+
+    .container .row select {
+      width: 150px;
+    }
+
+    .container .row table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .container .row th,
+    .container .row td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .container .row th {
+      background-color: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <label for="yearSelect">Year:</label>
+      <select id="yearSelect">
+        <option value="2030">2030</option>
+        <option value="2029">2029</option>
+        <option value="2028">2028</option>
+        <option value="2027">2027</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+      </select>
+
+      <label for="monthSelect">Month:</label>
+      <select id="monthSelect">
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+
+      <label for="dateInput">Date:</label>
+      <input type="text" id="dateInput" placeholder="Select date" style="width: 150px;">
+    </div>
+
+    <div class="row">
+      <table>
+        <tr>
+          <th>Skill</th>
+          <th>Rate</th>
+        </tr>
+        <tr>
+          <td>Skilled (SSK)</td>
+          <td><input type="text" id="rateSSK" placeholder="Rate"></td>
+        </tr>
+        <tr>
+          <td>Unskilled (USK)</td>
+          <td><input type="text" id="rateUSK" placeholder="Rate"></td>
+        </tr>
+        <tr>
+          <td>Semiskilled (SK)</td>
+          <td><input type="text" id="rateSK" placeholder="Rate"></td>
+        </tr>
+        <tr>
+          <td>Supervised (SUP)</td>
+          <td><input type="text" id="rateSUP" placeholder="Rate"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="row">
+      <button onclick="submitDetails()">Submit</button>
+      <button onclick="modifyDetails()">Modify</button>
+      <button onclick="deleteDetails()">Delete</button>
+    </div>
+
+    <div id="output"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    var year;
+    var month;
+    var date;
+    var rateSSK;
+    var rateUSK;
+    var rateSK;
+    var rateSUP;
+
+    $(function() {
+      $("#dateInput").datepicker();
+    });
+
+    function submitDetails() {
+      year = document.getElementById("yearSelect").value;
+      month = document.getElementById("monthSelect").value;
+      date = document.getElementById("dateInput").value;
+
+      rateSSK = document.getElementById("rateSSK").value;
+      rateUSK = document.getElementById("rateUSK").value;
+      rateSK = document.getElementById("rateSK").value;
+      rateSUP = document.getElementById("rateSUP").value;
+
+      // Perform submit action here
+      console.log("Submitted details:");
+      console.log("Year: " + year);
+      console.log("Month: " + month);
+      console.log("Date: " + date);
+      console.log("Rate SSK: " + rateSSK);
+      console.log("Rate USK: " + rateUSK);
+      console.log("Rate SK: " + rateSK);
+      console.log("Rate SUP: " + rateSUP);
+
+      var output = document.getElementById("output");
+      output.innerHTML = "<strong>Submitted details:</strong><br>Year: " + year + "<br>Month: " + month + "<br>Date: " + date + "<br>Rate SSK: " + rateSSK + "<br>Rate USK: " + rateUSK + "<br>Rate SK: " + rateSK + "<br>Rate SUP: " + rateSUP;
+
+      // Clear the input fields
+      clearInputFields();
+    }
+
+    function modifyDetails() {
+      // Check if details have been submitted before modifying
+      if (!year || !month || !date || !rateSSK || !rateUSK || !rateSK || !rateSUP) {
+        alert("Please submit details before modifying.");
+        return;
+      }
+
+      // Perform modify action here
+      console.log("Modified details:");
+      console.log("Year: " + year);
+      console.log("Month: " + month);
+      console.log("Date: " + date);
+      console.log("Rate SSK: " + rateSSK);
+      console.log("Rate USK: " + rateUSK);
+      console.log("Rate SK: " + rateSK);
+      console.log("Rate SUP: " + rateSUP);
+
+      var output = document.getElementById("output");
+      output.innerHTML = "<strong>Modified details:</strong><br>Year: " + year + "<br>Month: " + month + "<br>Date: " + date + "<br>Rate SSK: " + rateSSK + "<br>Rate USK: " + rateUSK + "<br>Rate SK: " + rateSK + "<br>Rate SUP: " + rateSUP;
+
+      // Clear the input fields
+      clearInputFields();
+    }
+
+    function deleteDetails() {
+      // Check if details have been submitted before deleting
+      if (!year || !month || !date || !rateSSK || !rateUSK || !rateSK || !rateSUP) {
+        alert("Please submit details before deleting.");
+        return;
+      }
+
+      // Perform delete action here
+      console.log("Deleted details:");
+      console.log("Year: " + year);
+      console.log("Month: " + month);
+      console.log("Date: " + date);
+      console.log("Rate SSK: " + rateSSK);
+      console.log("Rate USK: " + rateUSK);
+      console.log("Rate SK: " + rateSK);
+      console.log("Rate SUP: " + rateSUP);
+
+      var output = document.getElementById("output");
+      output.innerHTML = "<strong>Deleted details:</strong><br>Year: " + year + "<br>Month: " + month + "<br>Date: " + date + "<br>Rate SSK: " + rateSSK + "<br>Rate USK: " + rateUSK + "<br>Rate SK: " + rateSK + "<br>Rate SUP: " + rateSUP;
+
+      // Clear the input fields
+      clearInputFields();
+    }
+
+    function clearInputFields() {
+      document.getElementById("yearSelect").value = "";
+      document.getElementById("monthSelect").value = "";
+      document.getElementById("dateInput").value = "";
+      document.getElementById("rateSSK").value = "";
+      document.getElementById("rateUSK").value = "";
+      document.getElementById("rateSK").value = "";
+      document.getElementById("rateSUP").value = "";
+    }
+  </script>
+</body>
+</html>

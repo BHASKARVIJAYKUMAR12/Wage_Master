@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Muster Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .form-group select {
+      height: 30px;
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .button-container button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .output-container {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .output-container table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .output-container th,
+    .output-container td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Muster Details</h2>
+
+    <div class="form-group">
+      <label for="jobCode">Job Code:</label>
+      <input type="text" id="jobCode" placeholder="Enter job code (at least 10 characters)">
+    </div>
+
+    <div class="form-group">
+      <label for="yearSelect">Year:</label>
+      <select id="yearSelect">
+        <option value="">Select year</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+        <option value="2030">2030</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="monthSelect">Month:</label>
+      <select id="monthSelect">
+        <option value="">Select month</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+    </div>
+
+    <div class="button-container">
+      <button onclick="displayDetails()">Show Details</button>
+    </div>
+
+    <div class="output-container" id="outputContainer">
+      <!-- Details will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    function displayDetails() {
+      var jobCode = document.getElementById("jobCode").value;
+      var year = document.getElementById("yearSelect").value;
+      var month = document.getElementById("monthSelect").value;
+
+      // Validate job code
+      if (jobCode.length < 10) {
+        alert("Job code should be at least 10 characters.");
+        return;
+      }
+
+      // Simulated data from RDBMS
+      var data = [
+        {
+          aadharID: "1234567890",
+          name: "John Doe",
+          skill: "SSK",
+          workingDays: 20,
+          weeklyHalfs: 2,
+          publicHolidays: 3,
+          daysAbsent: 1
+        },
+        {
+          aadharID: "0987654321",
+          name: "Jane Smith",
+          skill: "USK",
+          workingDays: 22,
+          weeklyHalfs: 1,
+          publicHolidays: 2,
+          daysAbsent: 0
+        }
+        // Add more data from the RDBMS here...
+      ];
+
+      var outputContainer = document.getElementById("outputContainer");
+      outputContainer.innerHTML = "";
+
+      var matchingData = data.filter(function(item) {
+        return item.aadharID !== jobCode;
+      });
+
+      if (matchingData.length === 0) {
+        outputContainer.innerHTML = "<p>No matching records found.</p>";
+      } else {
+        var table = document.createElement("table");
+        var headerRow = table.insertRow();
+        var headers = ["Aadhar ID", "Name", "Skill", "Working Days", "Weekly Halfs", "Public Holidays", "Days Absent"];
+
+        for (var i = 0; i < headers.length; i++) {
+          var th = document.createElement("th");
+          th.textContent = headers[i];
+          headerRow.appendChild(th);
+        }
+
+        matchingData.forEach(function(item) {
+          var row = table.insertRow();
+          var rowData = [item.aadharID, item.name, item.skill, item.workingDays, item.weeklyHalfs, item.publicHolidays, item.daysAbsent];
+
+          rowData.forEach(function(value) {
+            var cell = row.insertCell();
+            cell.textContent = value;
+          });
+        });
+
+        outputContainer.appendChild(table);
+      }
+    }
+  </script>
+</body>
+</html>
